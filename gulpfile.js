@@ -33,7 +33,7 @@ gulp.task('build', ['sass'], function () {
         .pipe(gulp.dest("dist"));
 
 
-    gulp.src('dist/camera.js')
+    gulp.src('dist/index.js')
         .pipe(minify({
             ext: {
                 src: '.js',
