@@ -30,7 +30,7 @@ gulp.task('build', ['sass'], function () {
 
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest("extension")); //This will save the file, both in dist and extension directory!
 
 
     gulp.src('dist/index.js')
