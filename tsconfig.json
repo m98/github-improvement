@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "target": "es5",
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "es2015.promise",
+      "es5"
+    ]//This flag will let TypeScript knows "Promise" exists
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
