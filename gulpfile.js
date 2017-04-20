@@ -1,16 +1,36 @@
 'use strict';
 
-var gulp = require('gulp');
-var browserify = require("browserify");
-var source = require('vinyl-source-stream');
-var tsify = require("tsify"); //Browserify plugin for compiling Typescript
-var buffer = require('vinyl-buffer');
-var sourcemaps = require('gulp-sourcemaps');
-var minify = require('gulp-minify');
-var uglify = require('gulp-uglify');
-var sass = require('gulp-sass');
+let gulp = require('gulp');
+let browserify = require("browserify");
+let source = require('vinyl-source-stream');
+let tsify = require("tsify"); //Browserify plugin for compiling Typescript
+let buffer = require('vinyl-buffer');
+let sourcemaps = require('gulp-sourcemaps');
+let minify = require('gulp-minify');
+let concat = require('gulp-concat');
+let uglify = require('gulp-uglify');
+let sass = require('gulp-sass');
 
-gulp.task('build', ['sass'], function () {
+
+gulp.task('sass', function () {
+    return gulp.src('src/sass/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('extension/chrome'))
+        .pipe(gulp.dest('extension/firefox'));
+});
+
+gulp.task("build", ['compileTypeScript', 'sass'], function () {
+    return gulp.src(['src/libraries/*.js', 'dist/index.js'])
+        .pipe(sourcemaps.init())
+        .pipe(concat('all.js'))
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('extension/chrome'))
+        .pipe(gulp.dest('extension/firefox'));
+});
+
+gulp.task('compileTypeScript', function () {
     browserify({
         basedir: '.',
         standalone: 'githubEx',
@@ -18,36 +38,18 @@ gulp.task('build', ['sass'], function () {
         entries: ['src/index.ts'],
         cache: {},
         packageCache: {}
-    })
-        .plugin("tsify", {noImplicitAny: true})
+    }).plugin("tsify", {noImplicitAny: true})
         .transform('babelify', {
             presets: ['es2015'],
             extensions: ['.ts']
-        })
-        .bundle()
+        }).bundle()
         .pipe(source('index.js'))
         .pipe(buffer())
-
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest("extension")); //This will save the file, both in dist and extension directory!
-
-
-    gulp.src('dist/index.js')
         .pipe(minify({
             ext: {
-                src: '.js',
-                min: '.min.js'
+                min: '.js'
             },
-            exclude: ['tasks'],
-            ignoreFiles: ['.combo.js', '-min.js']
+            preserveComments: 'all'
         }))
-        .pipe(gulp.dest('dist'));
-});
-
-
-gulp.task('sass', function () {
-    return gulp.src('src/sass/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
 });
