@@ -20,7 +20,7 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('extension/firefox'));
 });
 
-gulp.task("build", ['compileTypeScript', 'sass'], function () {
+gulp.task("build", ['compileTypeScript', 'sass', 'compileTypeScriptBackground'], function () {
     return gulp.src(['src/libraries/*.js', 'dist/index.js'])
         .pipe(sourcemaps.init())
         .pipe(concat('all.js'))
@@ -30,6 +30,7 @@ gulp.task("build", ['compileTypeScript', 'sass'], function () {
         .pipe(gulp.dest('extension/firefox'));
 });
 
+//Compile the typescriot file which is on src/background
 gulp.task('compileTypeScript', function () {
     browserify({
         basedir: '.',
@@ -51,5 +52,33 @@ gulp.task('compileTypeScript', function () {
             },
             preserveComments: 'all'
         }))
+        .pipe(gulp.dest('dist'));
+});
+
+/*This task will compile TypeScript background file into JavaScript, it should be a different task, because maybe
+* there are some other tasks and things we are going to specifically add to background.ts
+* */
+gulp.task('compileTypeScriptBackground', function () {
+    browserify({
+        basedir: '.',
+        standalone: 'githubEx',
+        debug: true,
+        entries: ['src/background/background.ts'],
+        cache: {},
+        packageCache: {}
+    }).plugin("tsify", {noImplicitAny: true})
+        .transform('babelify', {
+            presets: ['es2015'],
+            extensions: ['.ts']
+        }).bundle()
+        .pipe(source('background.js'))
+        .pipe(buffer())
+        .pipe(minify({
+            ext: {
+                min: '.js'
+            },
+            preserveComments: 'all'
+        }))
         .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest("extension/chrome"));
 });
