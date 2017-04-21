@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popup menu</title>
+    <style>
+        body {
+            background-color: #24292e;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        .mainContent {
+            min-width: 370px;
+            color: rgba(255, 255, 255, 0.75);
+            background-color: #24292e;
+        }
+
+        .topDiv {
+            width: 100%;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #6c727a;
+        }
+
+        .topDiv form {
+            width: 314px;
+            display: inline-flex;
+            align-items: center;
+            float: right;
+        }
+
+        .logo {
+            display: inline-block;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+        }
+
+        .header-search-input {
+            width: 99.9%;
+            min-height: 36px;
+            font-size: inherit;
+            display: table-cell;
+            border-radius: 3px;
+            padding: 7px;
+            outline: none;
+            padding-top: 0;
+            padding-bottom: 0;
+            border: 0;
+            box-shadow: none;
+            margin: 0;
+        }
+
+        .bottomDiv {
+            color: #eeeeee;
+            margin-top: 8px;
+            padding-bottom: 3px;
+        }
+
+        .bottomDiv a {
+            color: #dedede;
+            font-size: 12px;
+            margin: 3px;
+        }
+    </style>
+    <base target="_blank"/>
+</head>
+<body>
+
+<div class="mainContent">
+
+    <div class="topDiv">
+        <a href="https://www.github.com/">
+            <img src="icon-256.png" class="logo"/>
+        </a>
+        <form action="https://www.github.com/search" method="get">
+            <input type="text" class="form-control header-search-input js-site-search-focus " data-hotkey="s" name="q"
+                   value="" placeholder="Search GitHub" aria-label="Search GitHub"
+                   data-unscoped-placeholder="Search GitHub"
+                   data-scoped-placeholder="Search" autocapitalize="off"/>
+        </form>
+    </div>
+
+    <div class="bottomDiv">
+        <a href="https://www.github.com/m98">
+            GitHub repository
+        </a> .
+        <a href="https://www.github.com/m98">
+            Fill an issue
+        </a>
+    </div>
+</div>
+</body>
+</html>

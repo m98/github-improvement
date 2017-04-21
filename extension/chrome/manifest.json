@@ -9,8 +9,7 @@
       ],
       "match_about_blank": true,
       "run_at": "document_start",
-      "all_frames":true,
-
+      "all_frames": true,
       "js": [
         "all.js"
       ],
@@ -20,12 +19,16 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
   "permissions": [
     "tabs"
   ],
   "browser_action": {
-    "default_icon": "icon-256.png"
+    "default_icon": "icon-256.png",
+    "default_title": "GitHub Extension",
+    "default_popup": "popup.html"
   }
 }
