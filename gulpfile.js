@@ -36,7 +36,7 @@ gulp.task('compileTypeScript', function () {
         basedir: '.',
         standalone: 'githubEx',
         debug: true,
-        entries: ['src/index.ts'],
+        entries: ['src/content_scripts/index.ts'],
         cache: {},
         packageCache: {}
     }).plugin("tsify", {noImplicitAny: true})
