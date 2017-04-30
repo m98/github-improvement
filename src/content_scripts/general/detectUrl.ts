@@ -1,4 +1,8 @@
 export class detectUrl {
+    static isGitHub() {
+        return this.currentDomainName('all') === 'github.com';
+    }
+
     static currentDomainName(type: string) {
         let currentLocation = window.location.hostname;
         if (type === 'all') {

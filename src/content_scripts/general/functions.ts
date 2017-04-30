@@ -1,6 +1,6 @@
 export class functions {
-    //In functions class, we will define simple and public/general functions that we might need them constantly
-    static getCookie(cname: string) : string {
+    //here we will define simple and public/general functions that we might need them constantly
+    static getCookie(cname: string): string {
         //The function source: https://www.w3schools.com/js/js_cookies.asp
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -15,6 +15,15 @@ export class functions {
             }
         }
         return "";
+    }
+
+    static createLink(url: string, title: string, wrapWith: string) {
+        let wrapElement: any = [{start: '', end: ''}];
+        if (wrapWith) {
+            wrapElement['start'] = '<' + wrapWith + '>';
+            wrapElement['end'] = '</' + wrapWith + '>';
+        }
+        return '<a href="' + url + '">' + wrapElement['start'] + title + wrapElement['end'] + '</a>';
 
     }
 }

@@ -1,21 +1,24 @@
 ///<reference path="../../node_modules/@types/jquery/index.d.ts" />
 ///<reference path="../../node_modules/@types/chrome/index.d.ts" />
 
-import {detectUrl} from "./lib/detectUrl"
-import {githubApi} from "./lib/githubApi"
+import {detectUrl} from "./general/detectUrl";
+import {URL} from "./general/url";
+
+import {templateCreator} from './general/templateCreator';
 
 $(document).ready(function () {
 
     //If this web page is GitHub run the script bellow:
-    if (detectUrl.currentDomainName('all') === 'github.com') {
+    if (detectUrl.isGitHub()) {
         //Send a message to background and get the username:
-        //@TODO: In background.ts username should save into database for easier access.
+        //@TODO: In background.ts username should save into database for easier access. A new class needed for user info
         //
         chrome.runtime.sendMessage({getCookie: "dotcom_user"}, function (response) {
             $.ajax({
-                url: githubApi.api + githubApi.userReceivedEvents(response),
+                dataType: 'json',
+                url: URL.api + URL.userReceivedEvents(response),
                 success: function (result) {
-                    $("#dashboard").append("<h1>" + result.length + "</h1>");
+                    $("#dashboard").find(".two-thirds").append(templateCreator.userReceivedEvents(result));
                 }
             });
 
