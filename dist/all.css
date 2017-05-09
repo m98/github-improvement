@@ -1,2 +1,2 @@
-.alert.simple, .ajax-pagination-btn {
+#dashboard .alert, #dashboard .ajax-pagination-btn {
   display: none !important; }

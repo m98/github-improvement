@@ -1,3 +1,6 @@
-.alert.simple, .ajax-pagination-btn {
-  display: none !important;
+#dashboard {
+  .alert, .ajax-pagination-btn {
+    display: none !important;
+  }
+
 }

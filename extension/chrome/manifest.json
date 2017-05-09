@@ -13,7 +13,7 @@
       "run_at": "document_start",
       "all_frames": true,
       "js": [
-        "all.js"
+        "libraries/jquery-3.2.1.min.js","all.js"
       ],
       "css": [
         "all.css"

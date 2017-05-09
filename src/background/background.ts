@@ -17,6 +17,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     //console.log(tabId, changeInfo, tab);
 });
 
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         chrome.cookies.get({"url": sender.tab.url, "name": request.getCookie}, function (result: any) {

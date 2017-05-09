@@ -10,6 +10,7 @@ let minify = require('gulp-minify');
 let concat = require('gulp-concat');
 let uglify = require('gulp-uglify');
 let sass = require('gulp-sass');
+let del = require('del');
 
 
 gulp.task('sass', function () {
@@ -20,8 +21,13 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('extension/firefox'));
 });
 
-gulp.task("build", ['compileTypeScript', 'sass', 'compileTypeScriptBackground'], function () {
-    return gulp.src(['src/libraries/*.js', 'dist/index.js'])
+gulp.task("build", ['transferContentScript', 'transferLibraries', 'compileTypeScript', 'sass', 'compileTypeScriptBackground'], function () {
+
+});
+
+//transfer the main typeScript file (content_script)
+gulp.task("transferContentScript", function () {
+    return gulp.src('dist/index.js')
         .pipe(sourcemaps.init())
         .pipe(concat('all.js'))
         .pipe(sourcemaps.init({loadMaps: true}))
@@ -30,7 +36,7 @@ gulp.task("build", ['compileTypeScript', 'sass', 'compileTypeScriptBackground'],
         .pipe(gulp.dest('extension/firefox'));
 });
 
-//Compile the typescriot file which is on src/background
+//Compile the typescriot file which is on src/content_script
 gulp.task('compileTypeScript', function () {
     browserify({
         basedir: '.',
@@ -56,8 +62,8 @@ gulp.task('compileTypeScript', function () {
 });
 
 /*This task will compile TypeScript background file into JavaScript, it should be a different task, because maybe
-* there are some other tasks and things we are going to specifically add to background.ts
-* */
+ * there are some other tasks and things we are going to specifically add to background.ts
+ * */
 gulp.task('compileTypeScriptBackground', function () {
     browserify({
         basedir: '.',
@@ -81,4 +87,37 @@ gulp.task('compileTypeScriptBackground', function () {
         }))
         .pipe(gulp.dest('dist'))
         .pipe(gulp.dest("extension/chrome"));
+});
+
+
+//Transfer library files:
+gulp.task('transferLibraries', function () {
+    return gulp.src(['src/libraries/*.js'])
+        .pipe(gulp.dest('extension/chrome/libraries'))
+        .pipe(gulp.dest('extension/firefox/libraries'));
+});
+
+//Transfer library files:
+gulp.task('transferLibraries', function () {
+    return gulp.src(['src/libraries/*.js'])
+        .pipe(gulp.dest('extension/chrome/libraries'))
+        .pipe(gulp.dest('extension/firefox/libraries'));
+});
+
+
+//Delete files before build tasks:
+gulp.task('clearDirectories', function () {
+    return del([
+        'dist/*',
+
+        'extension/firefox/libraries/*',
+        'extension/firefox/*.js',
+        'extension/firefox/*.css',
+        'extension/firefox/*.map',
+
+        'extension/chrome/libraries/*',
+        'extension/chrome/*.js',
+        'extension/chrome/*.css',
+        'extension/chrome/*.map',
+    ]);
 });

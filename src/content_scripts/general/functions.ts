@@ -17,13 +17,17 @@ export class functions {
         return "";
     }
 
-    static createLink(url: string, title: string, wrapWith: string) {
+    static createLink(url: string, title: string, wrapWith: string, before: string = '', after: string = '') {
         let wrapElement: any = [{start: '', end: ''}];
         if (wrapWith) {
             wrapElement['start'] = '<' + wrapWith + '>';
             wrapElement['end'] = '</' + wrapWith + '>';
         }
-        return '<a href="' + url + '">' + wrapElement['start'] + title + wrapElement['end'] + '</a>';
+        return '<a href="' + url + '">' + before + wrapElement['start'] + title + wrapElement['end'] + after + '</a>';
 
+    }
+
+    static createImageElement(url: string, attributes: string = '') {
+        return '<img src="' + url + ' ' + attributes + '"/>';
     }
 }
