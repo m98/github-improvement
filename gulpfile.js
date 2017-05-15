@@ -14,7 +14,7 @@ let del = require('del');
 
 
 gulp.task('sass', function () {
-    return gulp.src('src/sass/*.scss')
+    return gulp.src('src/sass/all.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('dist'))
         .pipe(gulp.dest('extension/chrome'))
@@ -40,7 +40,7 @@ gulp.task("transferContentScript", function () {
 gulp.task('compileTypeScript', function () {
     browserify({
         basedir: '.',
-        standalone: 'githubEx',
+        standalone: 'githubImprovement',
         debug: true,
         entries: ['src/content_scripts/index.ts'],
         cache: {},

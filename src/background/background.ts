@@ -12,7 +12,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         chrome.cookies.get({"url": tab.url, "name": "dotcom_user"}, function (result: any) {
             //@TODO: Insert the username into Chrome local storage for easier access.
             console.log(result);
-         });
+        });
     }
     //console.log(tabId, changeInfo, tab);
 });
@@ -27,3 +27,8 @@ chrome.runtime.onMessage.addListener(
         return true;
     });
 
+chrome.runtime.onInstalled.addListener(function (object) {
+    chrome.tabs.create({url: "https://github.com/m98/undefined"}, function (tab) {
+
+    });
+});

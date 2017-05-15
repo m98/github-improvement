@@ -1,7 +1,7 @@
 {
-  "name": "",
-  "version": "0.0.1",
-  "description": "",
+  "name": "Github Improvement",
+  "version": "0.0.2",
+  "description": "Improve GitHub website the way you want.",
   "main": "gulpfile.js",
   "directories": {
     "test": "test"
@@ -38,7 +38,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:m98/undefined.git"
+    "url": "git@github.com:m98/github-improvement.git"
   },
   "keywords": [
     "html5",
@@ -47,7 +47,7 @@
   "author": "Mohammad Kermani (98kermani@gmail.com)",
   "license": "MIT",
   "bugs": {
-    "url": "git@github.com:m98/undefined.git"
+    "url": "git@github.com:m98/github-improvement.git"
   },
-  "homepage": "git@github.com:m98/undefined.git"
+  "homepage": "git@github.com:m98/github-improvement.git"
 }

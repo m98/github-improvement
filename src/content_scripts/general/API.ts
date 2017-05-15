@@ -7,6 +7,7 @@ import {detectUrl} from "./detectUrl";
 import {URL} from "./url";
 import {user} from './user';
 import {templateCreator} from './templateCreator';
+import {icons} from "./icons";
 
 //API class is our main class which provides list of APIs to use:
 export class API {
@@ -14,33 +15,42 @@ export class API {
         //Anything to run here?
     }
 
-    public async getUserReceivedEvents() {
-        if (!getUserReceivedEventsFlag) {
-            var getUserReceivedEventsFlag: boolean;
-        }
-
-
-        if (detectUrl.isGitHub()) {
+    public async getUserReceivedEvents(page: number) {
+        if (detectUrl.isHomePage()) {
             let username = await user.username();
             $.ajax({
                 dataType: 'json',
-                url: URL.api + URL.userReceivedEvents(username),
+                url: URL.api + URL.userReceivedEvents(username) + '?page=' + page,
                 success: function (result) {
                     let HTMLTemplate: string = templateCreator.userReceivedEvents(result);
 
-                    if (!getUserReceivedEventsFlag) {
-                        $(".mt-4").prepend('<div id="dashboard-feed"></div>');
+                    if (page == 1) {
+                        $(".mt-4").prepend(
+                            '<div id="dashboard-feed"></div>' +
+                            '<button class="new-ajax-pagination">' +
+                            '<span>More</span>' +
+                            icons.loading +
+                            '</button>'
+                        );
                     }
 
+                    $(".new-ajax-pagination").removeClass("loading-button");
+
                     $("#dashboard-feed").append(HTMLTemplate);
-                    getUserReceivedEventsFlag = true;
                 }
             });
         }
-
     }
 
+    public askForStar() {
 
+        return templateCreator.arrowDialog(
+            "If you liked the project, please give us an <b>Star</b>",
+            'top',
+            'position:absolute !important; top:50px; width:365px; text-align:center;',
+            'dialog-askForStar'
+        );
+    }
 }
 
 

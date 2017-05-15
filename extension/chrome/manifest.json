@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "undefined",
-  "description": "Description here",
-  "homepage_url": "https://github-repository-url-here",
-  "version": "0.0.1",
+  "name": "GitHub Improvement",
+  "description": "Improve GitHub website the way you want.",
+  "homepage_url": "https://github.com/m98/github-improvement",
+  "version": "0.0.2",
   "content_scripts": [
     {
       "matches": [
@@ -13,7 +13,8 @@
       "run_at": "document_start",
       "all_frames": true,
       "js": [
-        "libraries/jquery-3.2.1.min.js","all.js"
+        "libraries/jquery-3.2.1.min.js",
+        "all.js"
       ],
       "css": [
         "all.css"
@@ -38,7 +39,7 @@
   ],
   "browser_action": {
     "default_icon": "icon-256.png",
-    "default_title": "GitHub Extension",
+    "default_title": "GitHub improvement",
     "default_popup": "popup.html"
   }
 }

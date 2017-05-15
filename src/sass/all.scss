@@ -1,6 +1,66 @@
+@import "public";
+
 #dashboard {
   .alert, .ajax-pagination-btn {
     display: none !important;
   }
 
+  .new-ajax-pagination {
+    width: 100%;
+    padding: 6px;
+    margin-top: 20px;
+    font-weight: 600;
+    color: #0366d6;
+    background: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 3px;
+    cursor: pointer;
+
+    svg {
+      display: none;
+    }
+    span {
+      display: inline-block;
+    }
+    &:hover {
+      background: #f6f8fa;
+    }
+    &.loading-button {
+      text-align: center !important;
+      span {
+        display: none;
+      }
+      svg {
+        display: block;
+        width: 22px;
+        height: 22px;
+        margin: auto;
+      }
+    }
+  }
+
+  #dashboard-feed {
+    .received-event-item {
+      text-align: left;
+      padding: 8px 0;
+      svg {
+        fill: #959da5;
+        margin-right: 16px;
+        position: relative;
+      }
+      img {
+        max-width: 40px;
+        border-radius: 6px;
+        margin: 6px;
+        position: relative;
+        top: 17px;
+      }
+
+      time {
+        font-size: 12px;
+        color: #959da5;
+      }
+    }
+  }
 }
+

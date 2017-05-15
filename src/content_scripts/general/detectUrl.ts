@@ -36,6 +36,14 @@ export class detectUrl {
         }
     }
 
+    static isHomePage = function () {
+        return document.URL === 'https://github.com/';
+    };
+
+    static isOurRepo = function(){
+        console.log(document.URL);
+        return document.URL === 'https://github.com/m98/undefined';
+    }
 }
 
 

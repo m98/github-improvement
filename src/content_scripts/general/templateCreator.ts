@@ -16,9 +16,9 @@ export class templateCreator {
 
             temp_image = functions.createImageElement(currentIndex.actor.avatar_url + 'v=3&s=40');
             currentIndexHTML += functions.createLink('https://www.github.com/' + currentIndex.actor.login,
-                currentIndex.repo.name, "span", temp_image);
+                currentIndex.actor.login, "span", temp_image);
 
-            currentIndexHTMLEnd += " " + moment(currentIndex.created_at).fromNow();
+            currentIndexHTMLEnd += " <time>" + moment(currentIndex.created_at).fromNow() + '</time>';
 
             if (currentIndex.type === 'WatchEvent') {
                 currentIndexHTMLStart += icons.star;
@@ -27,7 +27,7 @@ export class templateCreator {
             } else if (currentIndex.type === 'ForkEvent') {
                 currentIndexHTMLStart += icons.fork;
                 currentIndexHTML += ' forked ';
-                HTMLTemplate += functions.createLink('https://www.github.com/' + currentIndex.repo.name, currentIndex.repo.name, "span");
+                currentIndexHTML += functions.createLink('https://www.github.com/' + currentIndex.repo.name, currentIndex.repo.name, "span");
             } else if (currentIndex.type === 'MemberEvent') {
                 currentIndexHTMLStart += icons.member;
                 currentIndexHTML += ' added ';
@@ -49,12 +49,29 @@ export class templateCreator {
             }
 
 
-            HTMLTemplate += '<div style="display:block; margin-top:20px; ">' +
+            HTMLTemplate += '<div class="received-event-item">' +
                 currentIndexHTMLStart + currentIndexHTML + currentIndexHTMLEnd + '</div>';
-
-
         }
         return HTMLTemplate;
     }
+
+
+    static arrowDialog(text: string, position: string = 'top',
+                       style: string, className: string): string {
+        /* position: left, right, top, bottom.
+         * text: an string, or any HTML that will show inside the dialog box.
+         * size: a js object with height and width.
+         * style: inline css style
+         **/
+
+        let arrowDialog: string = '<div class="arrow_box arrow_box--' + position + " " + className + '"';
+        arrowDialog += 'style="' + style + '">';
+        arrowDialog += text;
+        arrowDialog += '</div>';
+
+        return arrowDialog;
+
+    }
+
 
 }
